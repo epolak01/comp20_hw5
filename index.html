@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Joe's Hot Dog Stand</title>
+
+    <style type="text/css">
+        body {
+            background-color: #efda86
+        }
+
+        h1 {
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        div {
+            text-align: center;
+            font-size: 30px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+        }
+
+        hr {
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #000000;
+            margin: 20px 0;
+        }
+    
+    
+    </style>
+
+</head>
+
+<body>
+    <h1>Joe's Hot Dog Stand</h1>
+    <div id='hd'></div>
+    <div id='ff'></div>
+    <div id='drink'></div>
+    <hr/>
+    <div id='subtotal'></div>
+    <div id='discount'></div>
+    <div id='discount_total'></div>
+    <div id='tax'></div>
+    <hr/>
+    <div id='total'></div>
+
+    <script>
+        var hot_dogs = prompt("How many hot dog(s)?", 1);
+        var french_fries = prompt("How many french frie(s)?", 1);
+        var drinks = prompt("How many drink(s)?", 1);
+
+        var total = 3.25 * parseFloat(hot_dogs) + 2.00 * parseFloat(french_fries)
+        + 1.50 * parseFloat(drinks);
+        var flat_total = total;
+
+        var discount = 0
+        if (total >= 20) {
+            discount = total * 0.1;
+        }
+        var discounted_total = total - discount;
+
+        tax = total * 0.0625;
+        total = total + tax;
+
+
+        document.getElementById("hd").innerHTML = "Hot Dogs: " + hot_dogs + " x $3.25";
+        document.getElementById("ff").innerHTML = "French Fries: " + french_fries + " x $2.00";
+        document.getElementById("drink").innerHTML = "Drinks: " + drinks + " x $1.50";
+
+        document.getElementById("subtotal").innerHTML = "Subtotal: $" + flat_total;
+        
+        if (discount > 0) {
+            document.getElementById("discount_total").innerHTML = 
+                "Discounted Total: $" + discounted_total.toFixed(2);
+            document.getElementById("discount").innerHTML =
+                "Discount: $" + discount.toFixed(2);
+        } else {
+            document.getElementById("discount_total").innerHTML = "No Discount Eligible";
+        }
+
+        document.getElementById("tax").innerHTML = "Tax: $" + tax.toFixed(2);
+
+        document.getElementById("total").innerHTML = "Total: $" + total.toFixed(2);
+    </script>
+
+</body>
+
+</html>
