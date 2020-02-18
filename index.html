@@ -42,6 +42,7 @@
     <div id='drink'></div>
     <hr/>
     <div id='subtotal'></div>
+    <div id="qdis"></div>
     <div id='discount'></div>
     <div id='discount_total'></div>
     <div id='tax'></div>
@@ -50,32 +51,44 @@
 
     <script>
         var hot_dogs = prompt("How many hot dog(s)?", 1);
-        var french_fries = prompt("How many french frie(s)?", 1);
+        var french_fries = prompt("How many french fries?", 1);
         var drinks = prompt("How many drink(s)?", 1);
 
-        var total = 3.25 * parseFloat(hot_dogs) + 2.00 * parseFloat(french_fries)
-        + 1.50 * parseFloat(drinks);
+        hot_dogs_total = 3.25 * parseFloat(hot_dogs);
+        french_fries_total = 2.00 * parseFloat(french_fries);
+        drinks_total = 1.50 * parseFloat(drinks);
+
+        var total = hot_dogs_total + french_fries_total + drinks_total;
         var flat_total = total;
 
         var discount = 0
         if (total >= 20) {
             discount = total * 0.1;
         }
+
         var discounted_total = total - discount;
 
-        tax = total * 0.0625;
-        total = total + tax;
+        tax = discounted_total * 0.0625;
+
+        var final_total = discounted_total + tax;
+
+        discount = Math.round(discount * 100) / 100;
+        tax = Math.round(tax * 100) / 100;
+        final_total = Math.round(final_total * 100) / 100;
+        discounted_total = Math.round(discounted_total * 100) / 100;
 
 
-        document.getElementById("hd").innerHTML = "Hot Dogs: " + hot_dogs + " x $3.25";
-        document.getElementById("ff").innerHTML = "French Fries: " + french_fries + " x $2.00";
-        document.getElementById("drink").innerHTML = "Drinks: " + drinks + " x $1.50";
+        document.getElementById("hd").innerHTML = "Hot Dogs: " + hot_dogs + " x $3.25 = $" + hot_dogs_total.toFixed(2);
+        document.getElementById("ff").innerHTML = "French Fries: " + french_fries + " x $2.00 = $" + french_fries_total.toFixed(2);
+        document.getElementById("drink").innerHTML = "Drinks: " + drinks + " x $1.50 = $" + drinks_total.toFixed(2);
 
-        document.getElementById("subtotal").innerHTML = "Subtotal: $" + flat_total;
+        document.getElementById("subtotal").innerHTML = "Subtotal Before Discount: $" + flat_total.toFixed(2);
         
         if (discount > 0) {
             document.getElementById("discount_total").innerHTML = 
-                "Discounted Total: $" + discounted_total.toFixed(2);
+                "Subtotal: $" + discounted_total.toFixed(2);
+            document.getElementById("qdis").innerHTML =
+                "You Qualify for a 10% discount";
             document.getElementById("discount").innerHTML =
                 "Discount: $" + discount.toFixed(2);
         } else {
@@ -84,7 +97,7 @@
 
         document.getElementById("tax").innerHTML = "Tax: $" + tax.toFixed(2);
 
-        document.getElementById("total").innerHTML = "Total: $" + total.toFixed(2);
+        document.getElementById("total").innerHTML = "Total: $" + final_total.toFixed(2);
     </script>
 
 </body>
